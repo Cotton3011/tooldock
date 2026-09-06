@@ -11,7 +11,7 @@
   "d1_databases": [{
     "binding": "DB",
     "database_name": "tooldock-vtuber",
-    "database_id": "00000000-0000-0000-0000-000000000000",
+    "database_id": "679f615a-6522-4752-9798-231eae993648",
     "migrations_dir": "migrations"
   }]
 }
