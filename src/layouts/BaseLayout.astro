@@ -2,9 +2,10 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-interface Props { title: string; description: string; canonical?: string; }
-const { title, description, canonical = Astro.url.pathname } = Astro.props;
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; }
+const { title, description, canonical = Astro.url.pathname, ogImage = '/og/vtooldock.png' } = Astro.props;
 const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin);
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin);
 const websiteSchema = { '@context':'https://schema.org', '@type':'WebSite', name:'VToolDock', url:new URL('/', Astro.site ?? Astro.url.origin) };
 ---
 <!doctype html>
@@ -20,8 +21,13 @@ const websiteSchema = { '@context':'https://schema.org', '@type':'WebSite', name
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title}の共有画像`} />
     <meta property="og:locale" content="ja_JP" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%232563eb%22/><text x=%2250%22 y=%2268%22 text-anchor=%22middle%22 font-size=%2255%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22700%22>V</text></svg>" />
     <title>{title}</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
