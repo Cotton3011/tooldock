@@ -1,4 +1,4 @@
-# ToolDock
+# VToolDock
 
 ブラウザ内で完結する、日本語の無料Webツール集です。初期版として、文字数カウンター、JSON整形、UUID生成、画像リサイズ、ルーレットを収録しています。
 
@@ -9,7 +9,7 @@
 - **Vitest**: ブラウザ処理から分離した集計・乱数ロジックを高速にテストします。
 - **Cloudflare Workers Static Assets + D1**: 静的ページは`dist`から直接配信し、VTuber名前検索の`/api/*`だけをWorkerで処理します。
 
-サイトURLは公開前に `astro.config.mjs` と `public/robots.txt` の `https://example.com` を実際のドメインへ変更してください。canonicalとsitemapに反映されます。
+本番サイトURLは`https://vtooldock.com`です。`astro.config.mjs`のsite、canonical、sitemap、robotsへ反映されています。
 
 ## ローカル起動
 
@@ -53,7 +53,7 @@ git push -u origin main
 3. Cloudflare DashboardのTurnstileでウィジェットを作り、本番ホスト名を登録します。
 4. WorkersのBuild variablesへ`PUBLIC_TURNSTILE_SITE_KEY`、Secretへ`TURNSTILE_SECRET_KEY`と十分に長いランダム値の`ABUSE_HASH_SALT`を設定します。
 5. GitHub連携のBuild commandを`pnpm build`、Deploy commandを`pnpm exec wrangler deploy`にします。
-6. 独自ドメイン設定後、`astro.config.mjs`と`public/robots.txt`の`example.com`を本番URLへ変更します。
+6. WorkersのCustom Domainsで`vtooldock.com`を設定します。
 
 ローカルでは`.env.example`を`.env`、`.dev.vars.example`を`.dev.vars`へコピーしてから実行します。例に含まれるTurnstileキーはCloudflare公式のテスト専用キーです。
 
