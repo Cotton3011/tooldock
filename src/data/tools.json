@@ -68,5 +68,35 @@
       {"q": "同じ項目を複数登録できますか？", "a": "できます。同じ項目を増やすと、その項目が選ばれる確率も増えます。"},
       {"q": "結果はどのように選ばれますか？", "a": "ブラウザの暗号学的に安全な乱数を使って選びます。"}
     ]
+  },
+  {
+    "id": "stream-title-generator", "name": "配信タイトルジェネレーター", "description": "ゲーム名や配信内容から、YouTube配信・Twitch配信で使えるタイトル候補を無料生成します。", "category": "vtuber", "path": "/vtuber/stream-title-generator", "enabled": true, "isNew": true, "popular": true, "keywords": ["VTuber", "配信者", "配信タイトル"], "relatedTools": ["stream-announcement-generator", "stream-schedule-maker", "youtube-thumbnail-resizer"], "uses": ["YouTube配信のタイトル作成", "Twitch配信のタイトル案", "参加型配信の告知準備"], "faq": [{"q":"AI APIを使っていますか？","a":"使っていません。用意したテンプレートをブラウザ内で組み合わせます。"},{"q":"生成したタイトルは自由に使えますか？","a":"はい。配信やSNS告知に無料で利用できます。"}]
+  },
+  {
+    "id": "stream-announcement-generator", "name": "配信告知文ジェネレーター", "description": "日時・URL・ハッシュタグをまとめた配信告知文を複数パターン作成します。", "category": "vtuber", "path": "/vtuber/stream-announcement-generator", "enabled": true, "isNew": true, "popular": true, "keywords": ["配信告知", "VTuber", "X"], "relatedTools": ["stream-title-generator", "stream-schedule-maker", "hashtag-formatter"], "uses": ["Xでの配信告知", "YouTube配信の事前案内", "Twitch配信の開始告知"], "faq": [{"q":"告知文は何パターン作れますか？","a":"入力内容から3パターン作成します。"},{"q":"文字数を確認できますか？","a":"はい。各候補に文字数を表示します。"}]
+  },
+  {
+    "id": "stream-schedule-maker", "name": "配信スケジュール画像メーカー", "description": "曜日別の予定を入力し、配信スケジュール画像をPNGで作成できます。", "category": "vtuber", "path": "/vtuber/stream-schedule-maker", "enabled": true, "isNew": true, "popular": true, "keywords": ["配信スケジュール", "配信素材", "VTuber"], "relatedTools": ["stream-announcement-generator", "youtube-thumbnail-resizer", "stream-time-calculator"], "uses": ["週間配信予定の共有", "SNS用の配信素材作成", "YouTubeコミュニティ投稿"], "faq": [{"q":"画像はどこで作られますか？","a":"Canvas APIを使いブラウザ内で作成します。"},{"q":"何曜日まで入力できますか？","a":"月曜日から日曜日まで入力できます。"}]
+  },
+  {
+    "id": "youtube-thumbnail-resizer", "name": "YouTubeサムネイルサイズ調整ツール", "description": "画像を1280×720へトリミングまたは余白付きで調整します。", "category": "vtuber", "path": "/vtuber/youtube-thumbnail-resizer", "enabled": true, "isNew": true, "popular": true, "keywords": ["YouTubeサムネイル", "1280x720", "配信素材"], "relatedTools": ["stream-title-generator", "stream-schedule-maker", "image-resizer"], "uses": ["YouTube配信サムネイル作成", "16:9画像への調整", "配信素材の形式変換"], "faq": [{"q":"画像はアップロードされますか？","a":"されません。ブラウザ内だけで変換します。"},{"q":"出力サイズは固定ですか？","a":"YouTube推奨比率の1280×720で出力します。"}]
+  },
+  {
+    "id": "obs-countdown", "name": "OBS用カウントダウンタイマー", "description": "配信開始前や休憩中に使える、見やすい無料カウントダウンタイマーです。", "category": "vtuber", "path": "/vtuber/obs-countdown", "enabled": true, "isNew": true, "popular": true, "keywords": ["OBS", "カウントダウン", "配信ツール"], "relatedTools": ["stream-time-calculator", "stream-goal-counter", "stream-schedule-maker"], "uses": ["OBSブラウザソース表示", "配信開始前の待機画面", "休憩時間の表示"], "faq": [{"q":"全画面表示できますか？","a":"はい。タイマー画面を全画面表示できます。"},{"q":"OBSで使えますか？","a":"公開URLをOBSのブラウザソースで開く設計です。"}]
+  },
+  {
+    "id": "stream-idea-generator", "name": "配信企画お題ジェネレーター", "description": "ゲーム・雑談・歌・チャレンジなどの配信企画をランダムに提案します。", "category": "vtuber", "path": "/vtuber/stream-idea-generator", "enabled": true, "isNew": true, "keywords": ["配信企画", "配信便利ツール", "VTuber"], "relatedTools": ["talk-topic-generator", "stream-title-generator"], "uses": ["配信企画のアイデア出し", "マンネリ防止", "コラボ企画の準備"], "faq": [{"q":"企画はAIが作りますか？","a":"いいえ。ジャンル別に用意した候補から抽選します。"},{"q":"同じ企画が出ることはありますか？","a":"再抽選すると同じ候補が出る場合があります。"}]
+  },
+  {
+    "id": "talk-topic-generator", "name": "雑談テーマジェネレーター", "description": "8カテゴリから配信で話しやすい雑談テーマをランダム表示します。", "category": "vtuber", "path": "/vtuber/talk-topic-generator", "enabled": true, "isNew": true, "keywords": ["雑談テーマ", "VTuber活動", "配信者"], "relatedTools": ["stream-idea-generator", "stream-title-generator"], "uses": ["雑談配信の話題探し", "配信中の話題切れ対策", "コラボトークのお題"], "faq": [{"q":"どんなカテゴリがありますか？","a":"日常、ゲーム、食べ物、恋愛、趣味、思い出、季節、VTuber活動です。"},{"q":"話題は外部から取得しますか？","a":"いいえ。サイト内の候補からブラウザで抽選します。"}]
+  },
+  {
+    "id": "stream-time-calculator", "name": "配信予定時間計算ツール", "description": "開始時刻と配信時間から、日付をまたぐ終了予定時刻を計算します。", "category": "vtuber", "path": "/vtuber/stream-time-calculator", "enabled": true, "isNew": true, "keywords": ["配信時間", "終了時刻", "配信ツール"], "relatedTools": ["stream-schedule-maker", "obs-countdown"], "uses": ["配信予定の終了時刻計算", "深夜配信の日付確認", "告知文作成前の時間確認"], "faq": [{"q":"日付をまたぐ計算に対応しますか？","a":"はい。翌日以降の日付も表示します。"},{"q":"最大何時間まで計算できますか？","a":"168時間まで計算できます。"}]
+  },
+  {
+    "id": "hashtag-formatter", "name": "ハッシュタグ整形ツール", "description": "単語をハッシュタグ形式へ整形し、重複や余分な空白を除去します。", "category": "vtuber", "path": "/vtuber/hashtag-formatter", "enabled": true, "isNew": true, "keywords": ["ハッシュタグ", "配信告知", "VTuber"], "relatedTools": ["stream-announcement-generator", "stream-title-generator"], "uses": ["配信タグの一括整形", "SNS告知文の準備", "重複タグの整理"], "faq": [{"q":"区切り方を選べますか？","a":"改行区切りとスペース区切りを選べます。"},{"q":"先頭の#は必要ですか？","a":"不要です。入力済みの#も自動で整えます。"}]
+  },
+  {
+    "id": "stream-goal-counter", "name": "配信目標カウンター", "description": "登録者数や耐久配信の目標について、達成率と残り数を表示します。", "category": "vtuber", "path": "/vtuber/stream-goal-counter", "enabled": true, "isNew": true, "keywords": ["配信目標", "達成率", "VTuber"], "relatedTools": ["obs-countdown", "stream-time-calculator"], "uses": ["登録者目標の進捗確認", "耐久配信の目標表示", "企画達成率の共有"], "faq": [{"q":"数値は保存されますか？","a":"いいえ。現在はブラウザ上での表示のみです。"},{"q":"目標を超えた場合はどうなりますか？","a":"達成率は100%を超えて表示し、バーは100%で満杯になります。"}]
   }
 ]

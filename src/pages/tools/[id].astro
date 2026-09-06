@@ -9,7 +9,7 @@ import toolsData from '../../data/tools.json';
 import type { Tool } from '../../lib/tool-types';
 
 export function getStaticPaths() {
-  return (toolsData as Tool[]).filter((tool) => tool.enabled).map((tool) => ({ params: { id: tool.id }, props: { tool } }));
+  return (toolsData as Tool[]).filter((tool) => tool.enabled && tool.category !== 'vtuber').map((tool) => ({ params: { id: tool.id }, props: { tool } }));
 }
 
 const { tool } = Astro.props;

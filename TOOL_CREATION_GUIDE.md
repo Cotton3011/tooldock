@@ -6,13 +6,13 @@
 
 ## 2〜5. 名前・説明・カテゴリ・URLを登録する
 
-`src/data/tools.json` に1件追加します。カテゴリは `text`、`development`、`image`、`random` のいずれか、URLは `/tools/{id}` とします。公開準備ができるまでは `enabled: false` にできます。
+`src/data/tools.json` に1件追加します。カテゴリは `vtuber`、`text`、`development`、`image`、`random` のいずれかを指定します。一般ツールのURLは `/tools/{id}`、VTuber・配信者向けツールは `/vtuber/{id}` とします。公開準備ができるまでは `enabled: false` にできます。
 
 ## 6. ツール本体を作る
 
 `src/components/tools/` にReactコンポーネントを作成します。入力データはブラウザ内で処理し、外部送信しません。処理ロジックは可能なら `src/lib/` に分け、テストしやすくします。操作イベントには `trackToolUse`、コピーには `trackCopy`、ダウンロードには `trackDownload` を呼び出します。
 
-`src/pages/tools/[id].astro` の `components` にIDとコンポーネントの対応を追加し、`usage` に3段階程度の使い方を追加します。
+一般ツールは `src/pages/tools/[id].astro`、VTuber・配信者向けツールは `src/pages/vtuber/[id].astro` にコンポーネントの対応と使い方を追加します。
 
 ## 7. SEO情報を確認する
 
@@ -20,7 +20,7 @@ titleとmeta descriptionはツールデータの名前・説明から自動生�
 
 ## 8. 関連ツールを確認する
 
-関連ツールは同じカテゴリを優先して自動表示します。個別指定が必要になった場合はツールデータへ関連ID配列を追加し、`ToolLayout.astro` の選択処理を拡張します。
+関連ツールは `relatedTools` のIDを優先し、足りない場合は同じカテゴリから自動表示します。検索意図を表す語句は `keywords`、主力表示は `popular` で管理します。
 
 ## 9. テストする
 

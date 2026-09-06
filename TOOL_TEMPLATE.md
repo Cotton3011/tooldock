@@ -7,8 +7,10 @@
 - ツールID: `{英小文字とハイフン}`
 - 名前: `{日本語名}`
 - 説明: `{検索結果でも内容が分かる簡潔な説明}`
-- カテゴリ: `{text | development | image | random}`
-- URL: `/tools/{ツールID}`
+- カテゴリ: `{vtuber | text | development | image | random}`
+- URL: `{一般: /tools/{ツールID} | VTuber: /vtuber/{ツールID}}`
+- SEOキーワード: `{自然に関連する語句}`
+- 主力表示: `{popular: true | false}`
 
 ## 必要な機能
 
@@ -21,14 +23,14 @@
 - 使い方: `{3段階程度}`
 - 主な用途: `{3件程度}`
 - FAQ: `{質問と回答を2件以上}`
-- 関連ツール: `{自動選択でよい／指定ID}`
+- 関連ツール: `{relatedToolsに指定するID}`
 
 ## 実装条件
 
 - `src/data/tools.json` へ情報を追加する
 - ツール本体は `src/components/tools/` に作る
 - 必要なら純粋な処理を `src/lib/` に分ける
-- `src/pages/tools/[id].astro` へ対応付けと使い方を追加する
+- カテゴリに応じて `src/pages/tools/[id].astro` または `src/pages/vtuber/[id].astro` へ対応付けと使い方を追加する
 - 共通Analyticsイベント関数を適切に呼ぶ
 - 空入力、不正入力、大きな入力を考慮する
 - PCとスマホで操作できるようにする

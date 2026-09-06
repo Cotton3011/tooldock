@@ -3,34 +3,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ToolCard from '../components/ToolCard.astro';
 import AdSlot from '../components/AdSlot.astro';
 import toolsData from '../data/tools.json';
-import { categories, type Tool, type CategoryId } from '../lib/tool-types';
+import { categories, categoryPaths, type Tool, type CategoryId } from '../lib/tool-types';
 const tools = (toolsData as Tool[]).filter((tool) => tool.enabled);
-const categoryCounts = Object.entries(categories).map(([id, name]) => ({ id: id as CategoryId, name, count: tools.filter((tool) => tool.category === id).length }));
+const vtuberTools = tools.filter((tool) => tool.category === 'vtuber');
+const categoryCounts = (Object.keys(categories) as CategoryId[]).map((id) => ({ id, name: categories[id], path: categoryPaths[id], count: tools.filter((tool) => tool.category === id).length }));
 ---
-<BaseLayout title="ToolDock｜無料で使える便利なWebツール" description="文字数カウント、JSON整形、UUID生成、画像リサイズ、ルーレットなど、登録不要で使える無料Webツール集です。">
-  <section class="hero container">
-    <div class="hero-copy">
-      <span class="eyebrow">FREE WEB TOOLS</span>
-      <h1>ちょっと面倒を、<br /><span>ここで片づける。</span></h1>
-      <p>登録不要ですぐ使える、軽くてシンプルなWebツール集。入力内容はブラウザ内で処理します。</p>
-      <a class="primary-link" href="#tools">ツールを探す <span>↓</span></a>
-    </div>
-    <div class="hero-panel" aria-label="ToolDockの特徴">
-      <div class="privacy-ring"><span>01</span><strong>ブラウザ<br />完結</strong></div>
-      <div class="hero-note"><span class="status-dot"></span><p><strong>Privacy first</strong><br />データを外部送信しません</p></div>
-    </div>
+<BaseLayout title="VTuber・配信者向け無料ツールと便利なWebツール | ToolDock" description="VTuber・配信者向けの配信ツールを中心に、画像・テキスト・開発・抽選などの無料オンラインツールを提供します。">
+  <section class="hero streamer-hero container">
+    <div class="hero-copy"><span class="eyebrow">FREE TOOLS FOR CREATORS</span><h1>配信準備を、<br /><span>もっとシンプルに。</span></h1><p>VTuber・配信者向け無料Webツールを中心に、画像・テキスト・開発などの便利なオンラインツールを提供します。登録不要、ブラウザ内処理が基本です。</p><a class="primary-link" href="/vtuber/">配信ツールを見る <span>→</span></a></div>
+    <div class="streamer-visual" aria-label="配信準備に役立つ機能"><div><span>LIVE</span><strong>10</strong><small>配信便利ツール</small></div><ul><li>タイトル・告知</li><li>OBS・時間管理</li><li>画像・配信素材</li><li>企画・雑談</li></ul></div>
   </section>
-  <section class="section-block container" id="categories">
-    <div class="section-heading"><div><span class="eyebrow">CATEGORIES</span><h2>カテゴリから探す</h2></div></div>
-    <div class="category-grid">{categoryCounts.map((category, index) => <a href={`#${category.id}`}><span>0{index + 1}</span><strong>{category.name}</strong><small>{category.count} tools</small></a>)}</div>
-  </section>
+  <section class="section-block container featured-vtuber"><div class="section-heading"><div><span class="eyebrow">VTUBER & STREAMER</span><h2>VTuber・配信者向けツール</h2></div><a class="section-link" href="/vtuber/">全10ツールを見る →</a></div><p class="section-lead">YouTube配信やTwitch配信の準備、OBS表示、配信素材づくりに役立つ無料ツールです。</p><div class="tool-grid">{vtuberTools.filter((tool) => tool.popular).slice(0, 6).map((tool) => <ToolCard tool={tool} />)}</div></section>
   <AdSlot />
-  <section class="section-block container" id="tools">
-    <div class="section-heading"><div><span class="eyebrow">ALL TOOLS</span><h2>すべてのツール</h2></div><p>{tools.length}個のツールを公開中</p></div>
-    <div class="tool-grid">{tools.map((tool) => <ToolCard tool={tool} />)}</div>
-  </section>
-  <section class="section-block container new-section">
-    <div class="section-heading"><div><span class="eyebrow">NEW</span><h2>新着ツール</h2></div></div>
-    <div class="new-list">{tools.filter((tool) => tool.isNew).slice(0, 3).map((tool, index) => <a href={tool.path}><span>0{index + 1}</span><div><strong>{tool.name}</strong><small>{tool.description}</small></div><b>→</b></a>)}</div>
-  </section>
+  <section class="section-block container" id="categories"><div class="section-heading"><div><span class="eyebrow">CATEGORIES</span><h2>カテゴリから探す</h2></div></div><div class="category-grid expanded">{categoryCounts.map((category, index) => <a class:list={[category.id === 'vtuber' && 'featured']} href={category.path}><span>0{index + 1}</span><strong>{category.name}</strong><small>{category.count} tools</small></a>)}</div></section>
+  <section class="section-block container" id="tools"><div class="section-heading"><div><span class="eyebrow">UTILITY TOOLS</span><h2>その他の便利ツール</h2></div><p>{tools.length}個のツールを公開中</p></div><div class="tool-grid">{tools.filter((tool) => tool.category !== 'vtuber').map((tool) => <ToolCard tool={tool} />)}</div></section>
+  <section class="section-block container new-section"><div class="section-heading"><div><span class="eyebrow">NEW</span><h2>新着ツール</h2></div></div><div class="new-list">{vtuberTools.slice(0, 4).map((tool,index)=><a href={tool.path}><span>0{index+1}</span><div><strong>{tool.name}</strong><small>{tool.description}</small></div><b>→</b></a>)}</div></section>
 </BaseLayout>

@@ -1,0 +1,21 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import VtuberTool from '../../components/tools/VtuberTool';
+import toolsData from '../../data/tools.json';
+import type { Tool } from '../../lib/tool-types';
+export function getStaticPaths(){return (toolsData as Tool[]).filter((tool)=>tool.enabled&&tool.category==='vtuber').map((tool)=>({params:{id:tool.id},props:{tool}}))}
+const { tool } = Astro.props as { tool: Tool };
+const usage:Record<string,string[]>={
+  'stream-title-generator':['ゲーム名や配信内容を入力します。','雰囲気と配信条件を選びます。','候補を生成し、使いたいタイトルをコピーします。'],
+  'stream-announcement-generator':['配信情報とハッシュタグを入力します。','3種類の告知文を生成します。','文字数を確認してコピーします。'],
+  'stream-schedule-maker':['曜日ごとの時間・タイトル・内容を入力します。','3種類からテーマを選びます。','プレビューを確認してPNGを保存します。'],
+  'youtube-thumbnail-resizer':['元画像を選択します。','トリミングまたは余白を選びます。','PNGかJPEGで1280×720画像を保存します。'],
+  'obs-countdown':['分と秒を設定してリセットします。','開始・一時停止を操作します。','必要に応じて全画面で表示します。'],
+  'stream-idea-generator':['配信ジャンルを選択します。','ランダム生成を押します。','表示された企画を配信内容に合わせて調整します。'],
+  'talk-topic-generator':['話したいカテゴリを選びます。','ランダム生成を押します。','別の話題が必要なら再度生成します。'],
+  'stream-time-calculator':['開始日と開始時刻を入力します。','予定時間と追加分を入力します。','日付を含む終了予定を確認します。'],
+  'hashtag-formatter':['単語やタグを貼り付けます。','改行またはスペース区切りを選びます。','重複を除いた結果をコピーします。'],
+  'stream-goal-counter':['目標値と現在値を入力します。','達成率と残り数を確認します。','プログレスバーで進捗を確認します。']
+};
+---
+<ToolLayout tool={tool}><VtuberTool slot="tool" id={tool.id} client:load /><ol slot="usage">{usage[tool.id].map((step)=><li>{step}</li>)}</ol></ToolLayout>
