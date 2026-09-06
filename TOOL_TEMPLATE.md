@@ -11,6 +11,9 @@
 - URL: `{一般: /tools/{ツールID} | VTuber: /vtuber/{ツールID}}`
 - SEOキーワード: `{自然に関連する語句}`
 - 主力表示: `{popular: true | false}`
+- アイコン: `{ToolIcon.astroで利用可能なLucideアイコン名}`
+- バッジ: `{人気 | 新着 | おすすめ | なし}`
+- 注目カード: `{featured: true | false}`
 
 ## 必要な機能
 

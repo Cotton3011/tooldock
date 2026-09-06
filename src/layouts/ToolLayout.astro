@@ -4,6 +4,7 @@ import AdSlot from '../components/AdSlot.astro';
 import ToolCard from '../components/ToolCard.astro';
 import toolsData from '../data/tools.json';
 import { categories, categoryPaths, type Tool } from '../lib/tool-types';
+import ToolIcon from '../components/ToolIcon.astro';
 interface Props { tool: Tool; }
 const { tool } = Astro.props;
 const allTools = toolsData as Tool[];
@@ -23,9 +24,10 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
   <div class="tool-page container">
     <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><a href={categoryPaths[tool.category]}>{categories[tool.category]}</a><span>/</span><span>{tool.name}</span></nav>
     <header class="tool-heading">
-      <span class="eyebrow">{categories[tool.category]}</span>
+      <span class:list={["tool-heading-icon", `category-${tool.category}`]}><ToolIcon name={tool.icon} size={30} /></span>
+      <div><span class="eyebrow">{categories[tool.category]}</span>
       <h1>{tool.name}</h1>
-      <p>{tool.description}入力データは外部へ送信されません。</p>
+      <p>{tool.description}入力データは外部へ送信されません。</p></div>
     </header>
     <AdSlot />
     <p class="back-to-category"><a href={categoryPaths[tool.category]}>← {categories[tool.category]}の一覧へ戻る</a></p>

@@ -1,13 +1,13 @@
 ---
 import { categories, type Tool } from '../lib/tool-types';
+import ToolIcon from './ToolIcon.astro';
 interface Props { tool: Tool; }
 const { tool } = Astro.props;
-const icons: Record<string, string> = { text: '文', development: '{ }', image: '▧', random: '◉' };
 ---
-<a class="tool-card" href={tool.path}>
-  <span class={`tool-icon ${tool.category}`} aria-hidden="true">{icons[tool.category]}</span>
+<a class:list={["tool-card", `category-${tool.category}`, tool.featured && "is-featured"]} href={tool.path}>
+  <span class="tool-icon"><ToolIcon name={tool.icon} /></span>
   <span class="tool-card-body">
-    <span class="eyebrow">{categories[tool.category]}</span>
+    <span class="card-meta"><span class="eyebrow">{categories[tool.category]}</span>{tool.badge && <span class="tool-badge">{tool.badge}</span>}</span>
     <strong>{tool.name}</strong>
     <span>{tool.description}</span>
   </span>

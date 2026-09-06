@@ -13,6 +13,9 @@ export interface Tool {
   keywords?: string[];
   relatedTools?: string[];
   popular?: boolean;
+  icon: string;
+  badge?: '人気' | '新着' | 'おすすめ';
+  featured?: boolean;
 }
 
 export const categories: Record<CategoryId, string> = {

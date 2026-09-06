@@ -8,6 +8,8 @@
 
 `src/data/tools.json` に1件追加します。カテゴリは `vtuber`、`text`、`development`、`image`、`random` のいずれかを指定します。一般ツールのURLは `/tools/{id}`、VTuber・配信者向けツールは `/vtuber/{id}` とします。公開準備ができるまでは `enabled: false` にできます。
 
+カード用のLucideアイコン名を `icon` に設定します。必要に応じて `badge` に `人気`、`新着`、`おすすめ`、注目カードには `featured: true` を指定します。
+
 ## 6. ツール本体を作る
 
 `src/components/tools/` にReactコンポーネントを作成します。入力データはブラウザ内で処理し、外部送信しません。処理ロジックは可能なら `src/lib/` に分け、テストしやすくします。操作イベントには `trackToolUse`、コピーには `trackCopy`、ダウンロードには `trackDownload` を呼び出します。

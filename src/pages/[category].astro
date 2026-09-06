@@ -4,6 +4,7 @@ import ToolCard from '../components/ToolCard.astro';
 import AdSlot from '../components/AdSlot.astro';
 import toolsData from '../data/tools.json';
 import { categories, categoryPaths, type CategoryId, type Tool } from '../lib/tool-types';
+import { MessageCircle, MicVocal, MonitorPlay, Radio, SlidersHorizontal } from '@lucide/astro';
 
 export function getStaticPaths() {
   const slugToId: Record<string, CategoryId> = { vtuber: 'vtuber', image: 'image', text: 'text', developer: 'development', random: 'random' };
@@ -27,6 +28,7 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
   <div class:list={["category-page", "container", isVtuber && "vtuber-category"]}>
     <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><span>{categories[categoryId]}</span></nav>
     <header class="category-hero">
+      {isVtuber && <div class="category-visual" aria-hidden="true"><span><MicVocal /></span><span><MonitorPlay /></span><span><MessageCircle /></span><span><SlidersHorizontal /></span><Radio class="signal-icon" /></div>}
       <span class="eyebrow">{isVtuber ? 'FOR STREAMERS' : 'CATEGORY'}</span>
       <h1>{categories[categoryId]}</h1>
       <p>{description}</p>

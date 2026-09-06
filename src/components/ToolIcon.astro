@@ -1,0 +1,12 @@
+---
+import {
+  BadgeCheck, Braces, CalendarDays, Clock, Dices, Hash, Image, Lightbulb,
+  Megaphone, MessageCircle, Search, Target, TextCursorInput, TextQuote, Timer, WandSparkles,
+} from '@lucide/astro';
+
+interface Props { name: string; size?: number; strokeWidth?: number; }
+const { name, size = 24, strokeWidth = 2 } = Astro.props;
+const icons = { BadgeCheck, Braces, CalendarDays, Clock, Dices, Hash, Image, Lightbulb, Megaphone, MessageCircle, Search, Target, TextCursorInput, TextQuote, Timer, WandSparkles };
+const Icon = icons[name as keyof typeof icons] ?? WandSparkles;
+---
+<Icon size={size} stroke-width={strokeWidth} aria-hidden="true" />
