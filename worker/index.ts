@@ -35,10 +35,18 @@ function sameOrigin(request: Request): boolean {
 }
 
 async function search(request: Request, env: Env): Promise<Response> {
-  const query = normalizeVtuberText(new URL(request.url).searchParams.get('q') || '');
-  if (!query || query.length > 100) return json({ error:'検索する名前または読み方を入力してください。' }, 400);
-  const result = await env.DB.prepare('SELECT id,name,reading,x_url,youtube_url,twitch_url,registration_number,created_at,report_count,hidden FROM vtubers WHERE normalized_name = ? OR normalized_reading = ? ORDER BY hidden ASC, id ASC LIMIT 20').bind(query, query).all<VtuberRow>();
-  if (!result.results.length) return json({ status:'not_found', query });
+  const params = new URL(request.url).searchParams;
+  const query = normalizeVtuberText(params.get('q') || '');
+  const name = normalizeVtuberText(params.get('name') || '');
+  const reading = normalizeVtuberText(params.get('reading') || '');
+  if ((!query && !name && !reading) || query.length > 100 || name.length > 100 || reading.length > 100) return json({ error:'検索する名前または読み方を入力してください。' }, 400);
+  const statement = query
+    ? env.DB.prepare('SELECT id,name,reading,x_url,youtube_url,twitch_url,registration_number,created_at,report_count,hidden FROM vtubers WHERE normalized_name = ? OR normalized_reading = ? ORDER BY hidden ASC, id ASC LIMIT 20').bind(query, query)
+    : name && reading
+      ? env.DB.prepare('SELECT id,name,reading,x_url,youtube_url,twitch_url,registration_number,created_at,report_count,hidden FROM vtubers WHERE normalized_name = ? AND normalized_reading = ? ORDER BY hidden ASC, id ASC LIMIT 20').bind(name, reading)
+      : env.DB.prepare(`SELECT id,name,reading,x_url,youtube_url,twitch_url,registration_number,created_at,report_count,hidden FROM vtubers WHERE ${name ? 'normalized_name' : 'normalized_reading'} = ? ORDER BY hidden ASC, id ASC LIMIT 20`).bind(name || reading);
+  const result = await statement.all<VtuberRow>();
+  if (!result.results.length) return json({ status:'not_found', query:name || reading || query });
   const visible = result.results.filter(item => !item.hidden);
   if (!visible.length) return json({ status:'hidden', message:'この登録は複数の通報により一時的に非表示になっています。' });
   return json({ status:'found', results:visible.map(({hidden,report_count,...item})=>item) });
