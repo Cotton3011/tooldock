@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { trackCopy, trackDownload, trackToolUse } from '../../lib/analytics';
 import { calculateEndTime, formatHashtags, progressValues, randomItem } from '../../lib/vtuber';
+import VtuberNameChecker from './VtuberNameChecker';
 
 type Props = { id: string };
 const copy = async (id: string, value: string) => { if (!value) return; await navigator.clipboard.writeText(value); trackCopy(id); };
@@ -39,4 +40,4 @@ function HashtagFormatter(){const [input,setInput]=useState('');const [separator
 
 function GoalCounter(){const [goal,setGoal]=useState(1000);const [current,setCurrent]=useState(350);const values=progressValues(current,goal);const pct=values?.percentage??0;return <div className="goal-panel"><div className="input-grid"><label>目標値<input type="number" min="1" value={goal} onChange={e=>{setGoal(+e.target.value);trackToolUse('stream-goal-counter','input')}}/></label><label>現在値<input type="number" min="0" value={current} onChange={e=>setCurrent(+e.target.value)}/></label></div>{values?<><div className="goal-numbers"><div><span>達成率</span><strong>{pct.toFixed(1)}%</strong></div><div><span>残り</span><strong>{values.remaining.toLocaleString()}</strong></div></div><div className="progress-track" role="progressbar" aria-valuenow={Math.min(100,pct)} aria-valuemin={0} aria-valuemax={100}><span style={{width:`${Math.min(100,pct)}%`}}/></div></>:<p className="message error">目標値は1以上、現在値は0以上で入力してください。</p>}</div>}
 
-export default function VtuberTool({id}:Props){switch(id){case'stream-title-generator':return <TitleGenerator/>;case'stream-announcement-generator':return <AnnouncementGenerator/>;case'stream-schedule-maker':return <ScheduleMaker/>;case'youtube-thumbnail-resizer':return <ThumbnailResizer/>;case'obs-countdown':return <Countdown/>;case'stream-idea-generator':return <IdeaGenerator/>;case'talk-topic-generator':return <TalkGenerator/>;case'stream-time-calculator':return <TimeCalculator/>;case'hashtag-formatter':return <HashtagFormatter/>;case'stream-goal-counter':return <GoalCounter/>;default:return null}}
+export default function VtuberTool({id}:Props){switch(id){case'name-checker':return <VtuberNameChecker/>;case'stream-title-generator':return <TitleGenerator/>;case'stream-announcement-generator':return <AnnouncementGenerator/>;case'stream-schedule-maker':return <ScheduleMaker/>;case'youtube-thumbnail-resizer':return <ThumbnailResizer/>;case'obs-countdown':return <Countdown/>;case'stream-idea-generator':return <IdeaGenerator/>;case'talk-topic-generator':return <TalkGenerator/>;case'stream-time-calculator':return <TimeCalculator/>;case'hashtag-formatter':return <HashtagFormatter/>;case'stream-goal-counter':return <GoalCounter/>;default:return null}}

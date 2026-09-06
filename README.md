@@ -7,7 +7,7 @@
 - **Astro 5 + TypeScript**: 各ページを静的HTMLとして生成でき、SEOと表示速度に向いています。
 - **React Islands**: 操作が必要なツール本体だけをReactで動かし、ページ全体のJavaScript量を抑えます。
 - **Vitest**: ブラウザ処理から分離した集計・乱数ロジックを高速にテストします。
-- **Cloudflare Pages**: `dist` ディレクトリをそのまま静的配信できます。サーバーやデータベースは不要です。
+- **Cloudflare Workers Static Assets + D1**: 静的ページは`dist`から直接配信し、VTuber名前検索の`/api/*`だけをWorkerで処理します。
 
 サイトURLは公開前に `astro.config.mjs` と `public/robots.txt` の `https://example.com` を実際のドメインへ変更してください。canonicalとsitemapに反映されます。
 
@@ -46,16 +46,24 @@ git push -u origin main
 
 秘密情報は `.env` に置きます。`.gitignore` によりコミット対象から除外されます。
 
-## Cloudflare Pagesへの公開
+## Cloudflare Workersへの公開
 
-1. Cloudflare Dashboardで **Workers & Pages** を開き、**Create application** → **Pages** → **Connect to Git** を選びます。
-2. GitHubアカウントを接続し、このリポジトリを選びます。
-3. Framework presetは **Astro**、Build commandは `pnpm build`、Build output directoryは `dist` にします。
-4. 保存してデプロイします。
-5. 独自ドメインを使う場合はPagesプロジェクトの **Custom domains** から追加します。
-6. 公開URL確定後、前述の `example.com` を置き換えて再度pushします。
+1. `pnpm exec wrangler d1 create tooldock-vtuber`を実行し、表示されたDatabase IDを`wrangler.jsonc`の`database_id`へ設定します。
+2. `pnpm exec wrangler d1 migrations apply tooldock-vtuber --remote`で本番DBへmigrationを適用します。
+3. Cloudflare DashboardのTurnstileでウィジェットを作り、本番ホスト名を登録します。
+4. WorkersのBuild variablesへ`PUBLIC_TURNSTILE_SITE_KEY`、Secretへ`TURNSTILE_SECRET_KEY`と十分に長いランダム値の`ABUSE_HASH_SALT`を設定します。
+5. GitHub連携のBuild commandを`pnpm build`、Deploy commandを`pnpm exec wrangler deploy`にします。
+6. 独自ドメイン設定後、`astro.config.mjs`と`public/robots.txt`の`example.com`を本番URLへ変更します。
 
-サーバー処理はないため、Cloudflare Workersや環境変数の設定は現時点では不要です。
+ローカルでは`.env.example`を`.env`、`.dev.vars.example`を`.dev.vars`へコピーしてから実行します。例に含まれるTurnstileキーはCloudflare公式のテスト専用キーです。
+
+```bash
+pnpm build
+pnpm db:migrate:local
+pnpm dev:worker
+```
+
+秘密情報を含む`.dev.vars`はGit管理対象外です。Turnstileトークンは登録・通報のたびにWorkerからSiteverifyへ送信して検証します。
 
 ## 構成
 
@@ -64,9 +72,11 @@ src/
   components/       共通UIと5ツールのReactコンポーネント
   data/tools.json   ツール情報の一元管理
   layouts/          共通レイアウトとSEO
-  lib/              集計、乱数、Analyticsスタブ、型
+  lib/              集計、入力検証、乱数、Analyticsスタブ、型
   pages/            トップ、ツール詳細、sitemap
   styles/           共通デザイン
+worker/             D1・Turnstileを使う名前検索API
+migrations/         D1 schema migration
 public/             robots.txtなどの静的ファイル
 ```
 
@@ -74,4 +84,4 @@ public/             robots.txtなどの静的ファイル
 
 ## プライバシーとAnalytics
 
-すべての入力処理はブラウザ内で完結します。`src/lib/analytics.ts` に `trackToolUse`、`trackCopy`、`trackDownload` のスタブがあり、将来ここへGoogle Analytics等の送信処理を追加できます。広告も `src/components/AdSlot.astro` の1か所を変更すれば全ページへ反映できます。
+画像・テキスト等の既存ツールはブラウザ内で完結します。VTuber名前検索の登録情報と通報情報だけをCloudflare D1へ保存します。`src/lib/analytics.ts` に `trackToolUse`、`trackCopy`、`trackDownload` のスタブがあり、将来ここへGoogle Analytics等の送信処理を追加できます。広告も `src/components/AdSlot.astro` の1か所を変更すれば全ページへ反映できます。

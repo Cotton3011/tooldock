@@ -6,6 +6,7 @@ import type { Tool } from '../../lib/tool-types';
 export function getStaticPaths(){return (toolsData as Tool[]).filter((tool)=>tool.enabled&&tool.category==='vtuber').map((tool)=>({params:{id:tool.id},props:{tool}}))}
 const { tool } = Astro.props as { tool: Tool };
 const usage:Record<string,string[]>={
+  'name-checker':['VTuber名または読み方を入力して検索します。','未登録の場合は名前・読み方と任意のSNS URLを入力し、Turnstile認証を完了します。','登録済み情報の確認、X共有、PNG保存、問題のある情報の通報ができます。'],
   'stream-title-generator':['ゲーム名や配信内容を入力します。','雰囲気と配信条件を選びます。','候補を生成し、使いたいタイトルをコピーします。'],
   'stream-announcement-generator':['配信情報とハッシュタグを入力します。','3種類の告知文を生成します。','文字数を確認してコピーします。'],
   'stream-schedule-maker':['曜日ごとの時間・タイトル・内容を入力します。','3種類からテーマを選びます。','プレビューを確認してPNGを保存します。'],

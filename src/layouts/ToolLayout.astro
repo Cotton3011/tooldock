@@ -10,7 +10,8 @@ const { tool } = Astro.props;
 const allTools = toolsData as Tool[];
 const relatedIds = tool.relatedTools ?? [];
 const related = allTools.filter((item) => item.enabled && item.id !== tool.id).sort((a, b) => Number(relatedIds.includes(b.id)) - Number(relatedIds.includes(a.id)) || Number(b.category === tool.category) - Number(a.category === tool.category)).slice(0, 4);
-const pageTitle = tool.category === 'vtuber' ? `${tool.name}｜VTuber・配信者向け無料ツール | ToolDock` : `${tool.name}｜無料・ブラウザ完結 - ToolDock`;
+const pageTitle = tool.id === 'name-checker' ? 'VTuber名前検索・登録チェッカー｜名前・読み方を無料検索 | ToolDock' : tool.category === 'vtuber' ? `${tool.name}｜VTuber・配信者向け無料ツール | ToolDock` : `${tool.name}｜無料・ブラウザ完結 - ToolDock`;
+const privacyNote = tool.id === 'name-checker' ? '検索・登録・通報データはCloudflare上で安全に処理します。' : '入力データは外部へ送信されません。';
 const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: tool.faq.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) };
 const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
   { '@type': 'ListItem', position: 1, name: 'ホーム', item: new URL('/', Astro.site) },
@@ -27,7 +28,7 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
       <span class:list={["tool-heading-icon", `category-${tool.category}`]}><ToolIcon name={tool.icon} size={30} /></span>
       <div><span class="eyebrow">{categories[tool.category]}</span>
       <h1>{tool.name}</h1>
-      <p>{tool.description}入力データは外部へ送信されません。</p></div>
+      <p>{tool.description}{privacyNote}</p></div>
     </header>
     <AdSlot />
     <p class="back-to-category"><a href={categoryPaths[tool.category]}>← {categories[tool.category]}の一覧へ戻る</a></p>
