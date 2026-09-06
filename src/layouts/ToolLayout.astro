@@ -1,0 +1,42 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import ToolCard from '../components/ToolCard.astro';
+import toolsData from '../data/tools.json';
+import { categories, type Tool } from '../lib/tool-types';
+interface Props { tool: Tool; }
+const { tool } = Astro.props;
+const allTools = toolsData as Tool[];
+const related = allTools.filter((item) => item.enabled && item.id !== tool.id).sort((a, b) => Number(b.category === tool.category) - Number(a.category === tool.category)).slice(0, 3);
+---
+<BaseLayout title={`${tool.name}｜無料・ブラウザ完結 - ToolDock`} description={tool.description} canonical={tool.path}>
+  <div class="tool-page container">
+    <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><span>{categories[tool.category]}</span></nav>
+    <header class="tool-heading">
+      <span class="eyebrow">{categories[tool.category]}</span>
+      <h1>{tool.name}</h1>
+      <p>{tool.description}入力データは外部へ送信されません。</p>
+    </header>
+    <AdSlot />
+    <section class="tool-surface" aria-label={`${tool.name} 操作画面`}><slot name="tool" /></section>
+    <div class="article-grid">
+      <article class="content-card">
+        <h2>使い方</h2>
+        <slot name="usage" />
+      </article>
+      <article class="content-card">
+        <h2>主な用途</h2>
+        <ul>{tool.uses.map((use) => <li>{use}</li>)}</ul>
+      </article>
+    </div>
+    <AdSlot />
+    <section class="section-block">
+      <div class="section-heading"><div><span class="eyebrow">OTHER TOOLS</span><h2>関連ツール</h2></div></div>
+      <div class="tool-grid compact">{related.map((item) => <ToolCard tool={item} />)}</div>
+    </section>
+    <section class="section-block faq-section">
+      <div class="section-heading"><div><span class="eyebrow">FAQ</span><h2>よくある質問</h2></div></div>
+      <div class="faq-list">{tool.faq.map((item) => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
+    </section>
+  </div>
+</BaseLayout>

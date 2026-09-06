@@ -1,0 +1,31 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CharacterCounter from '../../components/tools/CharacterCounter';
+import JsonFormatter from '../../components/tools/JsonFormatter';
+import UuidGenerator from '../../components/tools/UuidGenerator';
+import ImageResizer from '../../components/tools/ImageResizer';
+import Roulette from '../../components/tools/Roulette';
+import toolsData from '../../data/tools.json';
+import type { Tool } from '../../lib/tool-types';
+
+export function getStaticPaths() {
+  return (toolsData as Tool[]).filter((tool) => tool.enabled).map((tool) => ({ params: { id: tool.id }, props: { tool } }));
+}
+
+const { tool } = Astro.props;
+const usage: Record<string, string[]> = {
+  'character-counter': ['入力欄に文章を貼り付けるか入力します。', '右側の各カウントがリアルタイムで更新されます。', 'やり直す場合は「クリア」を押します。'],
+  'json-formatter': ['JSONを入力欄へ貼り付けます。', '「整形」または「圧縮」を選びます。', '必要に応じて結果をコピーします。'],
+  'uuid-generator': ['生成個数を1〜100件で指定します。', '「一括生成」または「再生成」を押します。', '1件ずつ、または全件をまとめてコピーします。'],
+  'image-resizer': ['画像をドロップするか、ファイルを選択します。', 'サイズ・形式・品質を設定します。', 'プレビューを確認してダウンロードします。'],
+  roulette: ['候補を入力して「追加」を押します。', '不要な候補は×ボタンで削除します。', '「スタート」を押し、当選結果を確認します。'],
+};
+---
+<ToolLayout tool={tool}>
+  {tool.id === 'character-counter' && <CharacterCounter slot="tool" client:load />}
+  {tool.id === 'json-formatter' && <JsonFormatter slot="tool" client:load />}
+  {tool.id === 'uuid-generator' && <UuidGenerator slot="tool" client:load />}
+  {tool.id === 'image-resizer' && <ImageResizer slot="tool" client:load />}
+  {tool.id === 'roulette' && <Roulette slot="tool" client:load />}
+  <ol slot="usage">{usage[tool.id].map((step) => <li>{step}</li>)}</ol>
+</ToolLayout>

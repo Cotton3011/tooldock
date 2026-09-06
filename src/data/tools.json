@@ -1,0 +1,72 @@
+[
+  {
+    "id": "character-counter",
+    "name": "文字数カウンター",
+    "description": "入力した文章の文字数・行数・単語数をリアルタイムで確認できます。",
+    "category": "text",
+    "path": "/tools/character-counter",
+    "enabled": true,
+    "isNew": true,
+    "uses": ["SNS投稿の文字数確認", "原稿やレポートの分量確認", "文章の行数・単語数確認"],
+    "faq": [
+      {"q": "入力した文章は送信されますか？", "a": "送信されません。すべてブラウザ内で集計します。"},
+      {"q": "絵文字は何文字として数えますか？", "a": "見た目に近い単位で数えます。結合された一部の絵文字は1文字として扱われます。"}
+    ]
+  },
+  {
+    "id": "json-formatter",
+    "name": "JSON整形ツール",
+    "description": "JSONを読みやすく整形・圧縮し、エラー箇所の確認もできます。",
+    "category": "development",
+    "path": "/tools/json-formatter",
+    "enabled": true,
+    "isNew": true,
+    "uses": ["APIレスポンスの確認", "設定ファイルの整形", "JSONの構文チェック"],
+    "faq": [
+      {"q": "JSONデータは外部へ送信されますか？", "a": "送信されません。ブラウザ内のJavaScriptだけで処理します。"},
+      {"q": "どのインデント幅を選べますか？", "a": "2または4スペースから選べます。"}
+    ]
+  },
+  {
+    "id": "uuid-generator",
+    "name": "UUID生成ツール",
+    "description": "安全なブラウザAPIを使ってUUID v4をまとめて生成できます。",
+    "category": "development",
+    "path": "/tools/uuid-generator",
+    "enabled": true,
+    "isNew": true,
+    "uses": ["テストデータのID作成", "データベース用IDの準備", "開発中の仮識別子作成"],
+    "faq": [
+      {"q": "重複することはありますか？", "a": "理論上はありますが、適切な乱数で生成したUUID v4が重複する確率は極めて低いです。"},
+      {"q": "一度に何件生成できますか？", "a": "画面の操作では1〜100件を生成できます。"}
+    ]
+  },
+  {
+    "id": "image-resizer",
+    "name": "画像リサイズツール",
+    "description": "画像をアップロードせず、ブラウザ内でサイズと形式を変換できます。",
+    "category": "image",
+    "path": "/tools/image-resizer",
+    "enabled": true,
+    "isNew": true,
+    "uses": ["ブログ画像の軽量化", "SNS用画像のサイズ調整", "PNG・JPEG・WebP形式への変換"],
+    "faq": [
+      {"q": "画像はサーバーへアップロードされますか？", "a": "アップロードされません。読み込みから変換までブラウザ内で完結します。"},
+      {"q": "透過画像をJPEGにできますか？", "a": "できます。JPEGは透過を保持できないため、透明部分は白色になります。"}
+    ]
+  },
+  {
+    "id": "roulette",
+    "name": "ルーレット",
+    "description": "入力した候補から、ルーレットで1つをランダムに選べます。",
+    "category": "random",
+    "path": "/tools/roulette",
+    "enabled": true,
+    "isNew": true,
+    "uses": ["昼食や行き先の決定", "発表順の抽選", "ゲームやイベントの当選者選び"],
+    "faq": [
+      {"q": "同じ項目を複数登録できますか？", "a": "できます。同じ項目を増やすと、その項目が選ばれる確率も増えます。"},
+      {"q": "結果はどのように選ばれますか？", "a": "ブラウザの暗号学的に安全な乱数を使って選びます。"}
+    ]
+  }
+]

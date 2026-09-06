@@ -1,0 +1,15 @@
+---
+import { categories, type Tool } from '../lib/tool-types';
+interface Props { tool: Tool; }
+const { tool } = Astro.props;
+const icons: Record<string, string> = { text: '文', development: '{ }', image: '▧', random: '◉' };
+---
+<a class="tool-card" href={tool.path}>
+  <span class={`tool-icon ${tool.category}`} aria-hidden="true">{icons[tool.category]}</span>
+  <span class="tool-card-body">
+    <span class="eyebrow">{categories[tool.category]}</span>
+    <strong>{tool.name}</strong>
+    <span>{tool.description}</span>
+  </span>
+  <span class="card-arrow" aria-hidden="true">→</span>
+</a>

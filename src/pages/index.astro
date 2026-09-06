@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from '../components/ToolCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import toolsData from '../data/tools.json';
+import { categories, type Tool, type CategoryId } from '../lib/tool-types';
+const tools = (toolsData as Tool[]).filter((tool) => tool.enabled);
+const categoryCounts = Object.entries(categories).map(([id, name]) => ({ id: id as CategoryId, name, count: tools.filter((tool) => tool.category === id).length }));
+---
+<BaseLayout title="ToolDock｜無料で使える便利なWebツール" description="文字数カウント、JSON整形、UUID生成、画像リサイズ、ルーレットなど、登録不要で使える無料Webツール集です。">
+  <section class="hero container">
+    <div class="hero-copy">
+      <span class="eyebrow">FREE WEB TOOLS</span>
+      <h1>ちょっと面倒を、<br /><span>ここで片づける。</span></h1>
+      <p>登録不要ですぐ使える、軽くてシンプルなWebツール集。入力内容はブラウザ内で処理します。</p>
+      <a class="primary-link" href="#tools">ツールを探す <span>↓</span></a>
+    </div>
+    <div class="hero-panel" aria-label="ToolDockの特徴">
+      <div class="privacy-ring"><span>01</span><strong>ブラウザ<br />完結</strong></div>
+      <div class="hero-note"><span class="status-dot"></span><p><strong>Privacy first</strong><br />データを外部送信しません</p></div>
+    </div>
+  </section>
+  <section class="section-block container" id="categories">
+    <div class="section-heading"><div><span class="eyebrow">CATEGORIES</span><h2>カテゴリから探す</h2></div></div>
+    <div class="category-grid">{categoryCounts.map((category, index) => <a href={`#${category.id}`}><span>0{index + 1}</span><strong>{category.name}</strong><small>{category.count} tools</small></a>)}</div>
+  </section>
+  <AdSlot />
+  <section class="section-block container" id="tools">
+    <div class="section-heading"><div><span class="eyebrow">ALL TOOLS</span><h2>すべてのツール</h2></div><p>{tools.length}個のツールを公開中</p></div>
+    <div class="tool-grid">{tools.map((tool) => <ToolCard tool={tool} />)}</div>
+  </section>
+  <section class="section-block container new-section">
+    <div class="section-heading"><div><span class="eyebrow">NEW</span><h2>新着ツール</h2></div></div>
+    <div class="new-list">{tools.filter((tool) => tool.isNew).slice(0, 3).map((tool, index) => <a href={tool.path}><span>0{index + 1}</span><div><strong>{tool.name}</strong><small>{tool.description}</small></div><b>→</b></a>)}</div>
+  </section>
+</BaseLayout>
