@@ -6,7 +6,7 @@ type FormEvent<T> = { preventDefault(): void; currentTarget: T };
 declare global { interface Window { turnstile?: { render:(element:HTMLElement,options:Record<string,unknown>)=>string; remove:(id:string)=>void; reset:(id?:string)=>void }; } }
 interface Vtuber { id:number; name:string; reading:string; x_url:string|null; youtube_url:string|null; twitch_url:string|null; registration_number:number; created_at:string; }
 type SearchResult = { status:'found'; results:Vtuber[] } | { status:'not_found'; query:string } | { status:'hidden'; message:string };
-const siteKey=import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+const siteKey=import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEqaUDPbuFzxFTAr';
 
 function browserId(){let value=localStorage.getItem('tooldock-browser-id');if(!value){value=crypto.randomUUID();localStorage.setItem('tooldock-browser-id',value)}return value}
 async function api(url:string,options?:RequestInit){const response=await fetch(url,options);const data=await response.json();if(!response.ok)throw new Error(data.error||'処理に失敗しました。');return data}
