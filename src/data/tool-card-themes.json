@@ -1,0 +1,13 @@
+{
+  "stream-title-generator": { "theme": "announcement", "bannerLabel": "TITLE", "illustrationType": "headline" },
+  "stream-announcement-generator": { "theme": "announcement", "bannerLabel": "ANNOUNCE", "illustrationType": "post" },
+  "hashtag-formatter": { "theme": "announcement", "bannerLabel": "HASHTAG", "illustrationType": "tags" },
+  "stream-schedule-maker": { "theme": "schedule", "bannerLabel": "SCHEDULE", "illustrationType": "calendar" },
+  "stream-time-calculator": { "theme": "schedule", "bannerLabel": "TIME", "illustrationType": "timeline" },
+  "obs-countdown": { "theme": "schedule", "bannerLabel": "COUNTDOWN", "illustrationType": "timer" },
+  "stream-idea-generator": { "theme": "ideas", "bannerLabel": "IDEA", "illustrationType": "note" },
+  "talk-topic-generator": { "theme": "ideas", "bannerLabel": "TALK", "illustrationType": "chat" },
+  "youtube-thumbnail-resizer": { "theme": "visual", "bannerLabel": "THUMBNAIL", "illustrationType": "crop" },
+  "stream-goal-counter": { "theme": "goal", "bannerLabel": "GOAL", "illustrationType": "progress" },
+  "name-checker": { "theme": "identity", "bannerLabel": "NAME CHECK", "illustrationType": "registry" }
+}

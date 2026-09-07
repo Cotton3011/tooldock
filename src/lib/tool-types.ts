@@ -16,6 +16,9 @@ export interface Tool {
   icon: string;
   badge?: '人気' | '新着' | 'おすすめ';
   featured?: boolean;
+  theme?: 'announcement' | 'schedule' | 'ideas' | 'visual' | 'goal' | 'identity';
+  bannerLabel?: string;
+  illustrationType?: string;
 }
 
 export const categories: Record<CategoryId, string> = {
