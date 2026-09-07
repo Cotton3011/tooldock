@@ -17,6 +17,14 @@ const description = isVtuber
   ? 'VTuber・配信者のYouTube配信やTwitch配信を支える無料の配信ツール集です。OBS、配信素材、告知、企画に役立つ便利ツールをブラウザで使えます。'
   : `${categories[categoryId]}に関する無料Webツールの一覧です。登録不要でブラウザから利用できます。`;
 const relatedCategories = (Object.keys(categories) as CategoryId[]).filter((id) => id !== categoryId);
+const categoryVisuals: Record<CategoryId, { src: string; alt: string }> = {
+  vtuber: { src: '/illustrations/vtuber-guide.webp', alt: '配信画面とコメント管理を案内するVToolDockオリジナル配信者キャラクター' },
+  image: { src: '/illustrations/image-guide.webp', alt: '画像のトリミングと書き出しを案内するVToolDockオリジナル画像編集キャラクター' },
+  text: { src: '/illustrations/text-guide.webp', alt: '文章編集と文字数確認を案内するVToolDockオリジナル編集者キャラクター' },
+  development: { src: '/illustrations/developer-guide.webp', alt: 'コードとJSONツールを案内するVToolDockオリジナル開発者キャラクター' },
+  random: { src: '/illustrations/random-guide.webp', alt: 'ルーレットと抽選を案内するVToolDockオリジナル司会者キャラクター' },
+};
+const categoryVisual = categoryVisuals[categoryId];
 const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
   { '@type': 'ListItem', position: 1, name: 'ホーム', item: new URL('/', Astro.site) },
   { '@type': 'ListItem', position: 2, name: categories[categoryId], item: new URL(categoryPaths[categoryId], Astro.site) },
@@ -26,8 +34,8 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
   <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <div class:list={["category-page", "container", isVtuber && "vtuber-category"]}>
     <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><span>{categories[categoryId]}</span></nav>
-    <header class="category-hero">
-      {isVtuber && <div class="category-visual"><img src="/illustrations/streamer-mascot.webp" width="760" height="507" alt="配信画面やスケジュールUIを案内する、きつね耳のVToolDockオリジナル配信者キャラクター" loading="eager" decoding="async" /></div>}
+    <header class:list={["category-hero", "illustrated-category"]}>
+      <div class="category-visual"><img src={categoryVisual.src} width="720" height="480" alt={categoryVisual.alt} loading="eager" decoding="async" /></div>
       <span class="eyebrow">{isVtuber ? 'FOR STREAMERS' : 'CATEGORY'}</span>
       <h1>{categories[categoryId]}</h1>
       <p>{description}</p>

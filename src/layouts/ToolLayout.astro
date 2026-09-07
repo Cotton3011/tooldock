@@ -23,7 +23,7 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
 <BaseLayout title={pageTitle} description={tool.description} canonical={tool.path} ogImage={ogImage}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  <div class="tool-page container">
+  <div class:list={["tool-page", "container", `category-${tool.category}`]}>
     <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><a href={categoryPaths[tool.category]}>{categories[tool.category]}</a><span>/</span><span>{tool.name}</span></nav>
     <header class="tool-heading">
       <span class:list={["tool-heading-icon", `category-${tool.category}`]}><ToolIcon name={tool.icon} size={30} /></span>
