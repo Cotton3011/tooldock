@@ -27,7 +27,7 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
   <div class:list={["category-page", "container", isVtuber && "vtuber-category"]}>
     <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><span>{categories[categoryId]}</span></nav>
     <header class="category-hero">
-      {isVtuber && <div class="category-visual"><img src="/illustrations/streamer-mascot.webp" width="760" height="507" alt="配信ツールに囲まれたVToolDockオリジナル配信者キャラクター" loading="eager" decoding="async" /><span aria-hidden="true">✦</span></div>}
+      {isVtuber && <div class="category-visual"><img src="/illustrations/streamer-mascot.webp" width="760" height="507" alt="配信画面やスケジュールUIを案内する、きつね耳のVToolDockオリジナル配信者キャラクター" loading="eager" decoding="async" /></div>}
       <span class="eyebrow">{isVtuber ? 'FOR STREAMERS' : 'CATEGORY'}</span>
       <h1>{categories[categoryId]}</h1>
       <p>{description}</p>
