@@ -1,18 +1,15 @@
 ---
 import { categories, type Tool } from '../lib/tool-types';
 import ToolIcon from './ToolIcon.astro';
+import ToolCardVisual from './ToolCardVisual.astro';
 import cardThemes from '../data/tool-card-themes.json';
 interface Props { tool: Tool; }
 const { tool } = Astro.props;
 const cardTheme = cardThemes[tool.id as keyof typeof cardThemes];
 const hasBanner = tool.category === 'vtuber' && cardTheme;
 ---
-<a class:list={["tool-card", `category-${tool.category}`, tool.featured && "is-featured"]} href={tool.path}>
-  {hasBanner ? <span class:list={["tool-banner", `theme-${cardTheme.theme}`, `visual-${cardTheme.illustrationType}`]} aria-hidden="true">
-    <span class="banner-label">{cardTheme.bannerLabel}</span>
-    <span class="banner-motif"><ToolIcon name={tool.icon} size={42} strokeWidth={1.6} /></span>
-    <i></i><b></b>
-  </span> : <span class="tool-icon"><ToolIcon name={tool.icon} /></span>}
+<a class:list={["tool-card", `category-${tool.category}`, hasBanner && "visual-card", hasBanner && `theme-${cardTheme.theme}`, hasBanner && `visual-${cardTheme.illustrationType}`, tool.featured && "is-featured"]} href={tool.path}>
+  {hasBanner ? <span class="tool-thumbnail"><ToolCardVisual type={cardTheme.illustrationType} /></span> : <span class="tool-icon"><ToolIcon name={tool.icon} /></span>}
   <span class="tool-card-body">
     <span class="card-meta"><span class="eyebrow">{categories[tool.category]}</span>{tool.badge && <span class="tool-badge">{tool.badge}</span>}</span>
     <strong>{tool.name}</strong>
