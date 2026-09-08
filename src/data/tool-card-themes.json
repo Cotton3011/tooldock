@@ -9,5 +9,10 @@
   "talk-topic-generator": { "theme": "ideas", "bannerLabel": "TALK", "illustrationType": "chat" },
   "youtube-thumbnail-resizer": { "theme": "visual", "bannerLabel": "THUMBNAIL", "illustrationType": "crop" },
   "stream-goal-counter": { "theme": "goal", "bannerLabel": "GOAL", "illustrationType": "progress" },
-  "name-checker": { "theme": "identity", "bannerLabel": "NAME CHECK", "illustrationType": "registry" }
+  "name-checker": { "theme": "identity", "bannerLabel": "NAME CHECK", "illustrationType": "registry" },
+  "stream-description-generator": { "theme": "announcement", "bannerLabel": "DESCRIPTION", "illustrationType": "description" },
+  "obs-text-decorator": { "theme": "visual", "bannerLabel": "OBS TEXT", "illustrationType": "text-style" },
+  "comment-lottery": { "theme": "ideas", "bannerLabel": "LOTTERY", "illustrationType": "lottery" },
+  "collab-role-maker": { "theme": "ideas", "bannerLabel": "COLLAB", "illustrationType": "roles" },
+  "youtube-chapter-formatter": { "theme": "schedule", "bannerLabel": "CHAPTER", "illustrationType": "chapters" }
 }

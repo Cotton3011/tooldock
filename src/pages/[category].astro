@@ -4,6 +4,7 @@ import ToolCard from '../components/ToolCard.astro';
 import AdSlot from '../components/AdSlot.astro';
 import toolsData from '../data/tools.json';
 import { categories, categoryPaths, type CategoryId, type Tool } from '../lib/tool-types';
+import { vtuberSections } from '../lib/vtuber-sections';
 
 export function getStaticPaths() {
   const slugToId: Record<string, CategoryId> = { vtuber: 'vtuber', image: 'image', text: 'text', developer: 'development', random: 'random' };
@@ -41,10 +42,12 @@ const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'Breadcrum
       <p>{description}</p>
       {isVtuber && <div class="keyword-pills"><span>OBS</span><span>YouTube配信</span><span>Twitch配信</span><span>配信素材</span></div>}
     </header>
+    {isVtuber && <nav class="directory-tabs" aria-label="VTuberツール分類"><a class="active" href="/vtuber/">総合</a>{Object.values(vtuberSections).map((section)=><a href={section.path}>{section.name}</a>)}</nav>}
+    {isVtuber && <section class="section-block directory-grid">{Object.values(vtuberSections).map((section)=><a href={section.path}><span class="eyebrow">{section.tools.length} TOOLS</span><h2>{section.name}</h2><p>{section.description}</p><b>一覧を見る →</b></a>)}</section>}
     {isVtuber && <section class="section-block"><div class="section-heading"><div><span class="eyebrow">POPULAR</span><h2>人気の配信便利ツール</h2></div></div><div class="tool-grid">{tools.filter((tool) => tool.popular).map((tool) => <ToolCard tool={tool} />)}</div></section>}
     <AdSlot />
     <section class="section-block"><div class="section-heading"><div><span class="eyebrow">NEW</span><h2>新着ツール</h2></div></div><div class="new-list">{tools.filter((tool) => tool.isNew).slice(0, 4).map((tool, index) => <a href={tool.path}><span>0{index + 1}</span><div><strong>{tool.name}</strong><small>{tool.description}</small></div><b>→</b></a>)}</div></section>
-    <section class="section-block"><div class="section-heading"><div><span class="eyebrow">ALL TOOLS</span><h2>{isVtuber ? 'すべてのVTuber・配信者向けツール' : 'すべてのツール'}</h2></div><p>{tools.length}個</p></div>{tools.length ? <div class="tool-grid">{tools.map((tool) => <ToolCard tool={tool} />)}</div> : <p class="empty-category">このカテゴリの新しいツールを準備中です。</p>}</section>
+    {!isVtuber && <section class="section-block"><div class="section-heading"><div><span class="eyebrow">ALL TOOLS</span><h2>すべてのツール</h2></div><p>{tools.length}個</p></div>{tools.length ? <div class="tool-grid">{tools.map((tool) => <ToolCard tool={tool} />)}</div> : <p class="empty-category">このカテゴリの新しいツールを準備中です。</p>}</section>}
     <section class="section-block"><div class="section-heading"><div><span class="eyebrow">RELATED</span><h2>関連カテゴリ</h2></div></div><div class="category-links">{relatedCategories.map((id) => <a href={categoryPaths[id]}>{categories[id]}<span>→</span></a>)}</div></section>
   </div>
 </BaseLayout>

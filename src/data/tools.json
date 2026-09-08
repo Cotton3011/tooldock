@@ -112,5 +112,20 @@
   },
   {
     "id": "name-checker", "name": "VTuber名前検索・登録チェッカー", "description": "VTuber名や読み方を無料で検索できる名前データベースです。未登録ならその場で登録し、結果をXで共有できます。", "category": "vtuber", "path": "/vtuber/name-checker", "enabled": true, "isNew": true, "popular": true, "icon": "Search", "badge": "おすすめ", "featured": true, "keywords": ["VTuber 名前検索", "VTuber 名前 登録", "VTuber 読み方", "VTuber 辞書", "VTuber 名前 チェッカー", "VTuber 一覧"], "relatedTools": ["stream-title-generator", "stream-announcement-generator", "hashtag-formatter"], "uses": ["VTuber名と読み方の検索", "未登録VTuber名の登録", "登録番号付き検索結果の共有"], "faq": [{"q":"誰でも登録できますか？","a":"はい。ログイン不要で、自動チェックとTurnstile認証を通過した情報を登録できます。"},{"q":"登録内容に問題がある場合は？","a":"検索結果から通報できます。有効な通報が一定数に達した登録は一時的に非表示になります。"},{"q":"他のVTuber辞書と関係がありますか？","a":"いいえ。VToolDockが独自に運営するユーザー参加型データベースです。"}]
+  },
+  {
+    "id":"stream-description-generator","name":"配信概要欄ジェネレーター","description":"チャンネル紹介、配信予定、リンク、タグをまとめた概要欄を作成します。","category":"vtuber","path":"/vtuber/stream-description-generator","enabled":true,"isNew":true,"icon":"TextQuote","badge":"新着","keywords":["配信概要欄","YouTube概要欄","VTuber"],"relatedTools":["stream-title-generator","hashtag-formatter"],"uses":["YouTube概要欄の作成","定型リンクの整理","配信予定の掲載"],"faq":[{"q":"入力内容は送信されますか？","a":"いいえ。ブラウザ内だけで文章を組み立てます。"},{"q":"作成した文章は編集できますか？","a":"コピー後に自由に編集できます。"}]
+  },
+  {
+    "id":"obs-text-decorator","name":"OBSテキスト装飾ジェネレーター","description":"配信画面向けの見やすい文字装飾をプレビューし、CSSをコピーできます。","category":"vtuber","path":"/vtuber/obs-text-decorator","enabled":true,"isNew":true,"icon":"Type","badge":"新着","keywords":["OBS テキスト","配信画面","CSS"],"relatedTools":["obs-countdown","stream-goal-counter"],"uses":["待機画面の文字装飾","OBSブラウザソース用CSS","配信テロップの確認"],"faq":[{"q":"OBSで利用できますか？","a":"コピーしたCSSを対応するブラウザソース等で利用できます。"},{"q":"外部APIを使いますか？","a":"使用しません。プレビューはブラウザ内で行います。"}]
+  },
+  {
+    "id":"comment-lottery","name":"配信コメント抽選ツール","description":"貼り付けたコメントや参加者名から、ブラウザ内で1件をランダム抽選します。","category":"vtuber","path":"/vtuber/comment-lottery","enabled":true,"isNew":true,"icon":"Dices","badge":"新着","keywords":["コメント抽選","配信抽選","VTuber"],"relatedTools":["stream-idea-generator","roulette"],"uses":["プレゼント企画の抽選","参加者選び","コメント企画"],"faq":[{"q":"コメントを自動取得しますか？","a":"いいえ。入力欄へ貼り付けた内容だけを使います。"},{"q":"重複コメントは使えますか？","a":"はい。同じ内容を複数行入力できます。"}]
+  },
+  {
+    "id":"collab-role-maker","name":"コラボ配信役割分担メーカー","description":"参加者と役割を入力し、コラボ配信の担当をランダムに割り当てます。","category":"vtuber","path":"/vtuber/collab-role-maker","enabled":true,"isNew":true,"icon":"WandSparkles","badge":"新着","keywords":["コラボ配信","役割分担","VTuber"],"relatedTools":["stream-idea-generator","talk-topic-generator"],"uses":["コラボの進行分担","ゲーム担当の抽選","企画準備"],"faq":[{"q":"人数と役割数が違っても使えますか？","a":"はい。役割が少ない場合は繰り返して割り当てます。"},{"q":"結果は保存されますか？","a":"保存されません。必要な結果をコピーしてください。"}]
+  },
+  {
+    "id":"youtube-chapter-formatter","name":"YouTubeチャプター整形ツール","description":"時刻と見出しをYouTube概要欄で使えるチャプター形式へ整えます。","category":"vtuber","path":"/vtuber/youtube-chapter-formatter","enabled":true,"isNew":true,"icon":"Clock","badge":"新着","keywords":["YouTubeチャプター","タイムスタンプ","配信アーカイブ"],"relatedTools":["stream-description-generator","stream-time-calculator"],"uses":["配信アーカイブの章分け","動画概要欄の整理","タイムスタンプ整形"],"faq":[{"q":"どの形式を入力できますか？","a":"0:00または1:02:03の後に見出しを入力してください。"},{"q":"不正な行はどうなりますか？","a":"時刻として認識できない行は結果から除外します。"}]
   }
 ]

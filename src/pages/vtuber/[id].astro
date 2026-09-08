@@ -16,7 +16,12 @@ const usage:Record<string,string[]>={
   'talk-topic-generator':['話したいカテゴリを選びます。','ランダム生成を押します。','別の話題が必要なら再度生成します。'],
   'stream-time-calculator':['開始日と開始時刻を入力します。','予定時間と追加分を入力します。','日付を含む終了予定を確認します。'],
   'hashtag-formatter':['単語やタグを貼り付けます。','改行またはスペース区切りを選びます。','重複を除いた結果をコピーします。'],
-  'stream-goal-counter':['目標値と現在値を入力します。','達成率と残り数を確認します。','プログレスバーで進捗を確認します。']
+  'stream-goal-counter':['目標値と現在値を入力します。','達成率と残り数を確認します。','プログレスバーで進捗を確認します。'],
+  'stream-description-generator':['チャンネル情報と紹介文を入力します。','予定、リンク、タグを追加します。','完成した概要欄をコピーします。'],
+  'obs-text-decorator':['表示する文字を入力します。','装飾プリセットを選びます。','プレビューを確認してCSSをコピーします。'],
+  'comment-lottery':['コメントや参加者を1行ずつ貼り付けます。','抽選ボタンを押します。','表示された当選結果を確認します。'],
+  'collab-role-maker':['参加者と役割を1行ずつ入力します。','役割を割り当てます。','結果を個別にコピーします。'],
+  'youtube-chapter-formatter':['時刻と見出しを1行ずつ入力します。','自動整形された結果を確認します。','YouTube概要欄用にコピーします。']
 };
 ---
 <ToolLayout tool={tool}><VtuberTool slot="tool" id={tool.id} client:load /><ol slot="usage">{usage[tool.id].map((step)=><li>{step}</li>)}</ol></ToolLayout>

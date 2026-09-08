@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from './ToolCard.astro';
+import toolsData from '../data/tools.json';
+import { vtuberSections, type VtuberSectionId } from '../lib/vtuber-sections';
+import type { Tool } from '../lib/tool-types';
+interface Props { sectionId: VtuberSectionId; }
+const { sectionId } = Astro.props;
+const section = vtuberSections[sectionId];
+const tools = (toolsData as Tool[]).filter((tool) => section.tools.includes(tool.id as never) && tool.enabled);
+---
+<BaseLayout title={`${section.name}の無料ツール｜VTuber・配信者向け | VToolDock`} description={section.description} canonical={section.path} ogImage="/og/vtuber-tools.png">
+  <main class="category-page container">
+    <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><a href="/vtuber/">VTuber・配信者向け</a><span>/</span><span>{section.name}</span></nav>
+    <header class="directory-heading"><span class="eyebrow">VTUBER TOOLS</span><h1>{section.name}</h1><p>{section.description}</p></header>
+    <nav class="directory-tabs" aria-label="VTuberツール分類"><a href="/vtuber/">総合</a>{Object.entries(vtuberSections).map(([id,item])=><a class:list={[id===sectionId&&'active']} href={item.path}>{item.name}</a>)}</nav>
+    <section class="section-block"><div class="section-heading"><div><span class="eyebrow">TOOLS</span><h2>{section.name}のツール</h2></div><p>{tools.length}個</p></div><div class="tool-grid">{tools.map((tool)=><ToolCard tool={tool}/>)}</div></section>
+  </main>
+</BaseLayout>

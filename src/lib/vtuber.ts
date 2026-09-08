@@ -21,3 +21,18 @@ export function randomItem<T>(items: T[]): T {
   crypto.getRandomValues(values);
   return items[values[0] % items.length];
 }
+
+export function formatChapters(input: string): string {
+  return input.split('\n').map((line) => line.trim()).filter(Boolean).map((line) => {
+    const match = line.match(/^(?:(\d{1,2}):)?(\d{1,2}):(\d{2})\s*[-–—]?\s*(.+)$/);
+    if (!match) return null;
+    const [, hours, minutes, seconds, title] = match;
+    return `${hours ? `${Number(hours)}:` : ''}${String(Number(minutes)).padStart(hours ? 2 : 1, '0')}:${seconds} ${title.trim()}`;
+  }).filter((line): line is string => Boolean(line)).join('\n');
+}
+
+export function assignRoles(names: string[], roles: string[]): string[] {
+  if (!names.length || !roles.length) return [];
+  const shuffled = [...roles].sort(() => Math.random() - .5);
+  return names.map((name, index) => `${name}：${shuffled[index % shuffled.length]}`);
+}
