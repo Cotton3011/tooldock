@@ -1,3 +1,7 @@
+---
+const path = Astro.url.pathname;
+const isActive = (prefix: string, toolPaths: string[] = []) => path.startsWith(prefix) || toolPaths.some((toolPath) => path.startsWith(toolPath));
+---
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="VToolDock ホーム">
@@ -5,11 +9,11 @@
       <span>VToolDock</span>
     </a>
     <nav aria-label="メインナビゲーション">
-      <a class="nav-primary" href="/vtuber/">VTuber・配信者</a>
-      <a href="/image/">画像</a>
-      <a href="/text/">テキスト</a>
-      <a href="/developer/">開発</a>
-      <a href="/random/">抽選</a>
+      <a class:list={{ 'nav-primary': isActive('/vtuber/') }} href="/vtuber/">VTuber・配信者</a>
+      <a class:list={{ 'nav-primary': isActive('/image/', ['/tools/image-resizer']) }} href="/image/">画像</a>
+      <a class:list={{ 'nav-primary': isActive('/text/', ['/tools/character-counter']) }} href="/text/">テキスト</a>
+      <a class:list={{ 'nav-primary': isActive('/developer/', ['/tools/json-formatter', '/tools/uuid-generator']) }} href="/developer/">開発</a>
+      <a class:list={{ 'nav-primary': isActive('/random/', ['/tools/roulette']) }} href="/random/">抽選</a>
     </nav>
   </div>
 </header>
